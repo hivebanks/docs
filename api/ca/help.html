@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>HiveBanks法币代理商API说明文档</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  <link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href="help.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>HiveBanks法币代理商API说明文档</h1>
+      <p>2018.5.29 V1.0 by ArthurYuan</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              测试服：http://testapi.fnying.com/ca/
+              正式服：待定
+
+            <b>返回数据格式</b>
+              json,支持jsonp(callback)调用
+              errcode 错误码
+              errmsg 错误信息
+
+            <b>正常返回</b>
+              errcode = 0
+              errmsg = ''
+              其他需要返回的json格式数据
+
+            <b>异常返回</b>
+              常见错误码：
+              -1  系统繁忙
+              110 系统异常
+              114 用户TOKEN过期
+              120 参数错误
+
+          </pre>
+
+          <!--注册登录API-->
+          <h3 id="mst_reg_email">代理商注册（邮件）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/mst_reg_email.php' target='api'>http://testapi.fnying.com/ca/mst_reg_email.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              email           Email地址
+              pass_word_hash  密码HASH
+              pass_word       原始密码
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              会调用send_email给注册邮箱发送验证链接，有效时间15分钟
+          </pre>
+
+          <h3 id="mst_reg_phone">代理商注册（手机）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/mst_reg_phone.php' target='api'>http://testapi.fnying.com/ca/mst_reg_phone.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              country_code    国家代码
+              cellphone       手机号码
+              pass_word_hash  密码HASH
+              pass_word       原始密码
+              sms_code        验证码
+              cfm_code        图形验证码（可关闭）
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              调用sms_send发送验证码，有效期15分钟
+          </pre>
+
+          <h3 id="lgn_email">代理商登录（邮件）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/lgn_email.php' target='api'>http://testapi.fnying.com/ca/lgn_email.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              email           Email地址
+              pass_word_hash  密码HASH
+              cfm_code        图形验证码（可关闭）
+            <b>返回</b>
+              errcode = 0     请求成功
+              token           用户TOKEN
+
+            <b>说明</b>
+              登录成功返回用户TOKEN，有效期2小时
+
+          </pre>
+
+          <h3 id="lgn_phone">代理商/操作员登录（手机）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/lgn_phone.php' target='api'>http://testapi.fnying.com/ca/lgn_phone.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              country_code    国家代码
+              cellphone       手机号码
+              pass_word_hash  密码HASH
+              sms_code        短信验证码
+              cfm_code        图形验证码（可关闭）
+            <b>返回</b>
+              errcode = 0     请求成功
+              token           用户TOKEN
+
+            <b>说明</b>
+              登录成功返回用户TOKEN，有效期2小时
+
+          </pre>
+
+          <h3 id="cfm_email">请求邮箱验证</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/cfm_email.php' target='api'>http://testapi.fnying.com/ca/cfm_email.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>   
+              cfm_hash        验证HASH
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+               仅仅做邮箱认证，通过参数进行判断跳转
+          </pre>
+
+          <h3 id="sms_send">发送手机验证码</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/sms_send.php' target='api'>http://testapi.fnying.com/ca/sms_send.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>   
+            cellphone                 手机号码
+            country_code              国家代码
+            bind_type                 bind_type                 申请验证的类型（1：注册 2：登录 3：忘记密码 4：绑定 5：交易）
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+          </pre>
+
+
+
+          <h3 id="cfm_phone">请求手机验证</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/cfm_phone.php' target='api'>http://testapi.fnying.com/ca/cfm_phone.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            sms_code        短信验证码
+            country_code    国家代码
+            cellphone       手机号码
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="cfm_email_preform">发送邮箱验证码</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/cfm_email_preform.php' target='api'>http://testapi.fnying.com/ca/cfm_email_preform.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              email           Email地址
+              token           用户token
+            <b>返回</b>
+              errcode = 0     请求成功
+            
+            <b>说明</b>
+               返回验证码       随机的六位数验证码
+          </pre>
+
+          <h3 id="rst_pw_email">重置密码（邮件）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/rst_pw_email.php' target='api'>http://testapi.fnying.com/ca/rst_pw_email.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              email           Email地址
+              cfm_code        验证码
+              pass_word_hash  新密码HASH
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="rst_pw_phone">重置密码（手机）</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/rst_pw_phone.php' target='api'>http://testapi.fnying.com/ca/rst_pw_phone.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              country_code    国家代码
+              cellphone       手机号码
+              sms_code        验证码
+              pass_word_hash  新密码HASH
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="bnd_file">文件绑定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/bnd_file.php' target='api'>http://testapi.fnying.com/ca/bnd_file.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              file_type       文件类型
+              file_url        上传文件URL
+              file_hash       上传文件HASH
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              绑定SSH证书，身份证，护照，手持文件图片等
+
+          </pre>
+
+          <h3 id="bnd_text">文本绑定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/bnd_text.php' target='api'>http://testapi.fnying.com/ca/bnd_text.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              text_type       文本类型,1:绑定邮箱,2:绑定身份证号,3:绑定姓名,4:绑定手机号码
+              text            文本内容
+              text_hash       文本内容HASH
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              绑定手机，邮箱，姓名，身份证，第三方账号等
+
+          </pre>
+
+          <h3 id="bnd_hash">HASH绑定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/bnd_hash.php' target='api'>http://testapi.fnying.com/ca/bnd_hash.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              hash_type       HASH类型
+              hash            HASH内容
+            <b>返回</b>
+              errcode = 0     请求成功
+            <b>说明</b>
+              HASH值绑定
+          </pre>
+
+          <h3 id="cfm_Google">请求谷歌认证</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/user/cfm_Google.php' target='api'>http://testapi.fnying.com/user/cfm_Google.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户token
+              code            谷歌认证码              
+            <b>返回</b>
+              errcode = 0               请求成功
+            <b>说明</b>
+              需要下载谷歌认证器
+
+          </pre>
+
+          <h3 id="bnd_Google">绑定谷歌认证</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/user/bnd_Google.php' target='api'>http://testapi.fnying.com/user/bnd_Google.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户token
+              email           用户绑定的email              
+            
+            <b>返回</b>
+              secret             谷歌绑定的密钥
+
+            <b>说明</b>
+              需要下载谷歌认证器
+
+          </pre>
+
+          <!-- <h3 id="change_text">文本绑定修改</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ba/change_text.php' target='api'>http://testapi.fnying.com/ba/change_text.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+            text_type       文本类型
+            text            文本内容
+            text_hash       文本内容HASH
+            pass_word_hash  密码HASH
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+            修改绑定手机，邮箱，姓名，身份证，第三方账号等
+          </pre> -->
+
+          <!--通用API-->
+
+
+          <!--信息获取API-->
+          <h3 id="mst_info_base">获取代理商基本信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/mst_info_base.php' target='api'>http://testapi.fnying.com/ca/mst_info_base.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+
+            <b>返回</b>
+              ca_id           代理商ID
+              bit_type        代理数字货币类型
+              base_amount     基准资产余额
+              lock_amount     锁定余额
+              security_level  安全等级
+              ca_level        代理商等级
+              count_recharge  充值未处理条数
+              count_withdraw  提现未处理条数
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="mst_info_bind">获取代理商绑定信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/mst_info_bind.php' target='api'>http://testapi.fnying.com/ca/mst_info_bind.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+
+            <b>返回</b>
+              security_level  安全等级
+              rows            安全信息数组
+                bind_type     绑定类型
+                bind_name     绑定名称
+                bind_info     绑定内容
+                ctime         绑定时间
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="get_ca_recharge_list_by_amount">获取渠道列表以及最低充值汇率</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/get_ca_recharge_list_by_amount.php' target='api'>http://testapi.fnying.com/ca/get_ca_recharge_list_by_amount.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token            请求的用户token
+              base_amount       法定货币金额
+            <b>返回</b>
+              errcode = 0     请求成功
+              rows            符合的ca列表
+                ca_channel    ca的渠道
+                base_rate     汇率
+
+
+            <b>说明</b>
+
+          </pre>
+
+
+
+          <h3 id="get_ca_withdraw_list_by_amount">获取符合提现金额的ca列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/get_ca_withdraw_list_by_amount.php' target='api'>http://testapi.fnying.com/ca/get_ca_withdraw_list_by_amount.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token          请求的用户token
+              base_amount       法定货币金额
+            <b>返回</b>
+              errcode = 0     请求成功
+              rows            符合的ca列表
+                ca_channel    ca的渠道
+                base_rate     汇率
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="get_recharge_withdraw_rate">获取充值提现汇率</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/get_recharge_withdraw_rate.php' target='api'>http://testapi.fnying.com/ca/get_recharge_withdraw_rate.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+               token                    用户token
+            <b>返回</b> 
+               new_rtn_arr             充值提现数组
+                 rtn_withdraw_row         用户提现汇率数组
+                    withdraw_min_amount   最小金额
+                    withdraw_max_amount   最大金额
+                    withdraw_us_level     用户等级
+                    withdraw_set_time     有效时间
+                    withdraw_ca_channel   ca提现的渠道
+                    withdraw_base_rate    基础汇率
+                 rtn_recharge_row         用户充值汇率数组
+                    recharge_min_amount   最小金额
+                    recharge_max_amount   最大金额
+                    recharge_us_level     用户等级
+                    recharge_set_time     有效时间
+                    recharge_ca_channel   ca充值的渠道
+                    recharge_base_rate    基础汇率
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="set_recharge_rate">充值汇率设定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/set_recharge_rate.php' target='api'>http://testapi.fnying.com/ca/set_recharge_rate.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token                   用户TOKEN
+              recharge_rate           充值汇率
+              recharge_min_amount     最小充值金额
+              recharge_max_amount     最大充值金额
+              limit_time              截止时间
+              ca_channel              法币渠道
+              pass_word_hash          密码hash
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="set_withdraw_rate">提现汇率设定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/set_withdraw_rate.php' target='api'>http://testapi.fnying.com/ca/set_withdraw_rate.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token                   用户TOKEN
+              withdraw_rate           提现汇率
+              withdraw_min_amount     最小提现金额
+              withdraw_max_amount     最大提现金额
+              limit_time              截止时间
+              ca_channel              法币渠道
+              pass_word_hash          密码hash
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_get_asset_account">获取ca资产地址</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/ca_get_asset_account.php' target='api'>http://testapi.fnying.com/ca/ca_get_asset_account.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token          请求的用户token
+            
+            <b>返回</b>
+            errcode = 0     成功返回码
+            account_id      账户id
+            ca_id           用户id
+            ca_channel      ca渠道
+            lgl_address     法定货币地址
+            use_flag        使用标志
+            ctime           创建时间
+            <b>说明</b>
+
+          </pre>
+
+
+
+          <!--充提业务API-->
+          <h3 id="us_recharge_quest">客户充值请求</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/us_recharge_quest.php' target='api'>http://testapi.fnying.com/ca/us_recharge_quest.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token          请求的用户token
+              ca_id           代理商ID
+              base_amount     数字货币金额
+              ca_channel      ca渠道
+              bit_amount      充值资产金额
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              recharge_rate   平均充值汇率
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="us_withdraw_quest">客户提现请求</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/us_withdraw_quest.php' target='api'>http://testapi.fnying.com/ca/us_withdraw_quest.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token          请求的用户token
+              ca_id           代理商ID
+              base_amount     数字货币金额
+              ca_channel      ca渠道
+              bit_amount      充值资产金额
+              us_account_id   地址id
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="assign_recharge_ca">分配充值ca</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/assign_recharge_ca.php' target='api'>http://testapi.fnying.com/ca/assign_recharge_ca.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token          请求的用户token
+              ca_channel      法定货币渠道
+              
+            <b>返回</b>
+              errcode = 0     请求成功
+              ca_id           代理商id
+              min_amount      最低限额
+              max_amount      最大限额
+              base_rate       汇率
+              set_time        有效时间
+              us_level        用户等级要求
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="assign_withdraw_ca">分配提现ca</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/assign_withdraw_ca.php' target='api'>http://testapi.fnying.com/ca/assign_withdraw_ca.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token          请求的用户token
+              ca_channel      法定货币渠道
+              
+            <b>返回</b>
+              errcode = 0     请求成功
+              ca_id           代理商id
+              min_amount      最低限额
+              max_amount      最大限额
+              base_rate       汇率
+              set_time        有效时间
+              us_level        用户等级要求
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_channel_list">ca法定货币渠道列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/ca_channel_list.php' target='api'>http://testapi.fnying.com/ca/ca_channel_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           ca的token
+              
+            <b>返回</b>
+              errcode = 0     成功返回码
+              rows            返回列表数组
+                option_key    渠道关键字
+                option_value  渠道全称
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_asset_account_add">添加ca资产账户</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/ca_asset_account_add.php' target='api'>http://testapi.fnying.com/ca/ca_asset_account_add.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token                ca的token
+              ca_channel           ca法定货币渠道
+              card_nm              账户卡号
+              name                 姓名
+              idNum                身份证号
+              pass_word_hash       密码hash
+              
+            <b>返回</b>
+              errcode = 0     获取成功返回码
+             
+            <b>说明</b>
+
+          </pre>
+
+
+
+
+          <h3 id="average_ca_recharge_rate">获取ca充值汇率的平均值</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/average_ca_recharge_rate.php' target='api'>http://testapi.fnying.com/ca/average_ca_recharge_rate.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token          请求的用户token
+              
+            <b>返回</b>
+              errcode = 0              请求成功
+              recharge_rate            充值汇率平均值
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="average_ca_withdraw_rate">获取ca提现汇率的平均值</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/average_ca_withdraw_rate.php' target='api'>http://testapi.fnying.com/ca/average_ca_withdraw_rate.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token          请求的用户token
+              
+            <b>返回</b>
+              errcode = 0              请求成功
+              withdraw_rate            提现汇率平均值
+
+            <b>说明</b>
+
+          </pre>
+
+
+
+          <h3 id="recharge_confirm">充值请求确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/recharge_confirm.php' target='api'>http://testapi.fnying.com/ca/recharge_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              qa_id           请求ID
+              type            type  1:同意，2：拒绝
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              base_amount     提现资产金额
+              lock_amount     锁定金额
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="withdraw_confirm">提现处理确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/withdraw_confirm.php' target='api'>http://testapi.fnying.com/ca/withdraw_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              qa_id           请求ID
+              type            type  1:同意，2：拒绝
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              base_amount     提现资产金额
+              lock_amount     锁定金额
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="bit_address_withdraw_add">ca提现地址添加</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/bit_address_withdraw_add.php' target='api'>http://testapi.fnying.com/ca/bit_address_withdraw_add.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+            bit_addree      数字货币充值地址
+        
+            <b>返回</b>
+            errcode = 0     请求成功
+            bit_address     数字货币地址
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_bit_address_withdraw">获取ca提现地址</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/get_bit_address_withdraw.php' target='api'>http://testapi.fnying.com/ca/get_bit_address_withdraw.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+           
+            <b>返回</b>
+            errcode = 0            请求成功
+            rows                   信息数组
+             bind_info               绑定信息
+             bind_flag               绑定标志  1通过2拒绝
+            <b>说明</b>
+
+          </pre>
+
+
+
+
+
+          <!--日志查询API-->
+          <h3 id="log_login">登录记录查询</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/log_login.php' target='api'>http://testapi.fnying.com/ca/log_login.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              limit           分页记录数
+              offset          分页偏移量
+
+            <b>返回</b>
+              total           总记录数
+              rows            记录数组
+                lgn_type        登录类型（email：邮件账号，phone：手机账号）
+                lgn_ip          登录IP
+                lgn_ip_area     登录地区
+                ctime           登录时间
+
+            <b>说明</b>
+
+          </pre>
+
+
+
+          <h3 id="log_balance">账户变动记录查询</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/log_balance.php' target='api'>http://testapi.fnying.com/ca/log_balance.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              limit           分页记录数
+              offset          分页偏移量
+
+            <b>返回</b>
+              total           总记录数
+              rows            记录数组
+                chg_type           变动类型(ca_in/out:CA充值提现，ca_in/out:BA充值提现，us_in/out:用户转入转出)
+                chg_amount         变动金额
+                chg_balance        变动后账户余额
+                rq_id              用户请求id
+                tx_hash            交易hash
+                ctime              变动时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="log_us_recharge">代理用户充值记录查询</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/log_us_recharge.php' target='api'>http://testapi.fnying.com/ca/log_us_recharge.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户TOKEN
+              type            1：未处理 2：已处理  3：拒绝
+
+            <b>返回</b>
+              total           总记录数
+              rows            记录数组
+                qa_id               请求ID
+                us_id               用户ID
+                lgl_amount          法定货币金额  
+                base_amount         充值资产金额
+                tx_time             请求时间戳
+                tx_detail           交易描述
+                tx_hash             交易hash
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="log_us_withdraw">代理用户提现记录查询</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/log_us_withdraw.php' target='api'>http://testapi.fnying.com/ca/log_us_withdraw.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+            type            1：未处理 2：已处理  3：拒绝
+
+          <b>返回</b>
+            total           总记录数
+            rows            记录数组
+              qa_id               请求ID
+              us_id               用户ID
+              lgl_amount          法定货币金额
+              base_amount         充值资产金额
+              tx_time             请求时间戳
+              tx_detail           交易描述
+              tx_hash             交易hash
+          <b>说明</b>
+
+          </pre>
+
+          <h3 id="alter_ca_account">修改ca的昵称</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/alter_ca_account.php' target='api'>http://testapi.fnying.com/ca/alter_ca_account.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+            ca_account      ca的昵称
+
+          <b>返回</b>
+          ca_account      ca的昵称
+          <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_la_admin_info">获取管理员laID</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/ca/get_la_admin_info.php' target='api'>http://testapi.fnying.com/ca/get_la_admin_info.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token           用户TOKEN
+           
+
+          <b>返回</b>
+           errcode = 0                   成功
+           la_id                         管理员ID
+          <b>说明</b>
+
+          </pre>
+
+
+        </div>
+      </div>
+
+      <div class="col-md-3" role="complementary">
+          <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu" id="menubar">
+            <ul class="nav bs-docs-sidenav">
+              <li>
+                <a href="#common">
+                  <b>概要说明</b>
+                </a>
+              </li>
+              <li>------------------------------------------</li>
+            </ul>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#reg_lgn_menu">
+                  注册登录API
+                </a>
+              </h4>
+            </div>
+            <div id="reg_lgn_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#mst_reg_email">
+                      <b class="text-success">代理商注册（邮件）</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#mst_reg_phone">
+                      <b class="text-success">代理商注册（手机）</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#lgn_email">
+                      <b class="text-success">代理商登录（邮件）</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#lgn_phone">
+                      <b class="text-success">代理商登录（手机）</b>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#common_menu">
+                  通用API
+                </a>
+              </h4>
+            </div>
+            <div id="common_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#cfm_email">
+                      <b class="text-success">请求邮箱验证</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#cfm_phone">
+                      <b class="text-success">请求手机验证</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#cfm_email_preform">
+                      <b class="text-success">发送邮箱验证码</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#sms_send">
+                      <b class="text-success">发送手机验证码</b>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="#rst_pw_email">
+                      <b class="text-success">重置密码（邮件）</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#rst_pw_phone">
+                      <b class="text-success">重置密码（手机）</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#bnd_file">
+                      <b class="text-success">文件绑定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#bnd_text">
+                      <b class="text-success">文本绑定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#bnd_hash">
+                      <b class="text-success">HASH绑定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#cfm_Google">
+                      <b class="text-warning">请求谷歌认证</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#bnd_Google">
+                      <b class="text-warning">谷歌绑定</b>
+                    </a>
+                  </li>
+                  <li>
+                      <a href="#change_text">
+                        <b class="text-success">文本绑定修改</b>
+                      </a>
+                    </li>
+  
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#info_menu">
+                  信息获取API
+                </a>
+              </h4>
+            </div>
+            <div id="info_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#mst_info_base">
+                      <b class="text-success">获取代理商基本信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#mst_info_bind">
+                      <b class="text-success">获取代理商绑定信息</b>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#deal_menu">
+                  基本业务API
+                </a>
+              </h4>
+            </div>
+            <div id="deal_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#get_ca_recharge_list_by_amounte">
+                      <b class="text-success">获取渠道列表以及最低充值汇率</b>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#get_ca_withdraw_list_by_amounte">
+                      <b class="text-success">获取符合提现金额的ca列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_recharge_withdraw_rate">
+                      <b class="text-success">获取充值提现汇率</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_recharge_rate">
+                      <b class="text-success">充值汇率设定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_withdraw_rate">
+                      <b class="text-success">提现汇率设定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_get_asset_account">
+                      <b class="text-success">获取ca资产地址</b>
+                    </a>
+                  </li>
+
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#cash_menu">
+                  充提业务API
+                </a>
+              </h4>
+            </div>
+            <div id="cash_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#us_recharge_quest">
+                      <b class="text-success">客户充值请求</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#us_withdraw_quest">
+                      <b class="text-success">客户提现请求</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#assign_recharge_ca">
+                      <b class="text-success">分配充值ca</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#assign_withdraw_ca">
+                      <b class="text-success">分配提现ca</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_channel_list">
+                      <b class="text-success">ca法定货币渠道列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_asset_account_add">
+                      <b class="text-success">添加ca资产账户</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#average_ca_recharge_rate">
+                      <b class="text-success">获取ca充值汇率的平均值</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#average_ca_withdraw_rate">
+                      <b class="text-success">获取ca提现汇率的平均值</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#recharge_confirm">
+                      <b class="text-success">充值处理确认</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#withdraw_confirm">
+                      <b class="text-success">提现处理确认</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#bit_address_withdraw_add">
+                      <b class="text-success">添加ca添加ca提现地址</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_bit_address_withdraw">
+                      <b class="text-success">获取ca提现地址</b>
+                    </a>
+                  </li>
+
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#log_menu">
+                  日志查询API
+                </a>
+              </h4>
+            </div>
+            <div id="log_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#log_login">
+                      <b class="text-success">登录记录查询</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#log_balance">
+                      <b class="text-success">账户变动记录查询</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#log_us_recharge">
+                      <b class="text-success">代理用户充值记录查询</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#log_us_withdraw">
+                      <b class="text-success">代理用户提现记录查询</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#alter_ca_account">
+                      <b class="text-success">修改ca的昵称</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_la_admin_info">
+                      <b class="text-success">获取管理员laID</b>
+                    </a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>HiveBanks用户API说明文档</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  <link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href="help.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>HiveBanks用户API说明文档</h1>
+      <p>2018.5.14 V1.0 by ArthurYuan</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              测试服：http://doc.fnying.com/api/bot/help.html
+              正式服：待定
+
+            <b>返回数据格式</b>
+              json,支持jsonp(callback)调用
+              errcode 错误码
+              errmsg 错误信息
+
+            <b>正常返回</b>
+              errcode = 0
+              errmsg = ''
+              其他需要返回的json格式数据
+
+            <b>异常返回</b>
+              常见错误码：
+              -1  系统繁忙
+              109 非正确的认证信息
+              114 TOKEN过期
+              131 参数错误
+
+          </pre>
+
+          <h3 id="reg_email">聊天记录收集</h3>
+          <h2>
+            <a href='http://phpmanong.cn/api/bot/collect_message.php' target='api'>http://phpmanong.cn/api/bot/collect_message.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              nickname          昵称
+              content         内容
+              send_time      时间
+              token      token(暂时未传)
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="reg_phone">搜索用户当日发言数</h3>
+          <h2>
+            <a href='http://phpmanong.cn/api/bot/search_day_message.php' target='api'>http://phpmanong.cn/api/bot/search_day_message.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              wechat    微信号
+              token       token验证(暂时未传)
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+              count           数据量
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="lgn_email">根据指令查询用户余额</h3>
+          <h2>
+            <a href='http://phpmanong.cn/api/bot/search_us_amount.php' target='api'>http://phpmanong.cn/api/bot/search_us_amount.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              wechat           微信号
+              token            token(暂时未传)
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              base_amount           用户余额
+              lock_amount       用户冻结余额
+
+            <b>说明</b>
+
+
+          </pre>
+
+          <h3 id="lgn_phone">统计用户余额排行榜前十</h3>
+          <h2>
+            <a href='http://phpmanong.cn/api/bot/statistics_amount_list.php' target='api'>http://phpmanong.cn/api/bot/statistics_amount_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token    token(暂时未传)
+
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              list           数组值列表
+
+            <b>说明</b>
+              统计用户余额排行榜前十
+
+          </pre>
+
+
+
+        </div>
+
+      </div>
+
+      <div class="col-md-3" role="complementary">
+        <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu" id="menubar">
+          <ul class="nav bs-docs-sidenav">
+            <li>
+              <a href="#common">
+                <b>概要说明</b>
+              </a>
+            </li>
+            <li>------------------------------------------</li>
+          </ul>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#reg_lgn_menu">
+                  机器人查询接口
+                </a>
+              </h4>
+            </div>
+            <div id="reg_lgn_menu" class="panel-collapse collapse" >
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#reg_email">
+                      <b class="text-warning">聊天记录收集</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#reg_phone">
+                      <b class="text-warning">搜索用户当日发言数</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#lgn_email">
+                      <b class="text-warning">根据指令查询用户余额</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#lgn_phone">
+                      <b class="text-warning">统计用户余额排行榜前十</b>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

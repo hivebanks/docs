@@ -1,0 +1,8 @@
+'''
+    author: Sunny
+    date: 2018.7.10
+'''
+
+github:    https://github.com/bitpay/bitcore-lib
+
+

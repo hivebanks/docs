@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <title>HiveBanks基准银行说明文档</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="help.css" rel="stylesheet">
+  </head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>HiveBanks用户API说明文档</h1>
+      <p>2018.5.14 V1.0 by ArthurYuan</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+         
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              测试服：http://testapi.fnying.com/la
+              正式服：待定
+
+            <b>返回数据格式</b>
+              json,支持jsonp(callback)调用
+              errcode 错误码
+              errmsg 错误信息
+
+            <b>正常返回</b>
+              errcode = 0
+              errmsg = ''
+              其他需要返回的json格式数据
+
+            <b>异常返回</b>
+              常见错误码：
+              -1  系统繁忙
+              110 系统异常
+              114 TOKEN过期
+              120 参数错误
+
+          </pre>
+          <!-- manage -->
+          <h3 id="ba_list">获取ba列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ba_list.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ba_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token            用户token
+            <b>返回</b>
+            rows            信息数组
+              ba_id        baID
+              ba_nm         代理商编号（内部唯一）
+              ba_account    代理商表示账号（内部唯一）
+              base_amount   基准资产余额
+              lock_amount   锁定余额
+              ba_type       代理商类型
+              ba_level      代理商等级
+              security_level安全等级
+              utime         更新时间
+              ctime         创建时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ba_list_detail_message">获取ba详细信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ba_list_detail_message.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ba_list_detail_message.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            ba_id         baID
+          <b>返回</b>
+          rows            信息数组
+          security_level  安全等级
+          ba_type        代理商
+          ba_level         代理商等级
+          lock_amount   绑定金额
+          base_amount   可用金额
+          utime        更新时间
+          ctime        创建时间
+          
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ba_bail">调整ba保证金</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ba_bail.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ba_bail.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token                   用户token
+            pass_word_hash          密码hash
+            base_amount             充值金额
+            ba_id                   baid
+          <b>返回</b>
+            rows                     信息数组
+              base_amount            保证金余额
+          
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_list">获取ca列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ca_list.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ca_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+
+            <b>返回</b>
+              rows            信息数组
+                ca_id         caID
+                ca_nm         代理商编号（内部唯一）
+                ca_account    代理商表示账号（内部唯一）
+                base_amount   基准资产余额
+                lock_amount   锁定余额
+                ca_type       代理商类型
+                ca_level      代理商等级
+                security_level安全等级
+                utime         更新时间
+                ctime         创建时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_list_detail_message">获取ca详细信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ca_list_detail_message.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ca_list_detail_message.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            ca_id         caID
+            <b>返回</b>
+              rows            信息数组
+                security_level  安全等级
+                ca_type        代理商类型
+                ca_level         代理商等级
+                lock_amount   绑定金额
+                base_amount   可用金额
+                utime        更新时间
+                ctime        创建时间
+            
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="ca_bail">调整ca保证金</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/ca_bail.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/ca_bail.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token                   用户token
+            pass_word_hash          密码hash
+            base_amount             充值金额
+            ca_id                   ba_id
+          <b>返回</b>
+            rows                     信息数组
+              base_amount            保证金余额
+          
+
+            <b>说明</b>
+
+          </pre>
+          <h3 id="user_list">获取us列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/user_list.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/user_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token           用户token
+            <b>返回</b>
+            rows            信息数组
+              us_id        用户ID
+              us_nm         用户商编号（内部唯一）
+              us_account    用户表示账号（内部唯一）
+              base_amount   基准资产余额
+              lock_amount   锁定余额
+              us_type       用户类型
+              us_level      用户等级
+              security_level安全等级
+              utime         更新时间
+              ctime         创建时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="user_list_detail_message">获取us详细信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/user_list_detail_message.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/user_list_detail_message.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              us_id         用户id
+            <b>返回</b>
+            rows            信息数组
+              security_level  安全等级
+              us_level       用户等级
+              lock_amount   绑定金额
+              base_amount   可用金额
+              utime        更新时间
+              ctime        创建时间
+            <b>说明</b>
+          </pre>
+
+
+          <h3 id="set_user_black_list">设定用户黑名单列表信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/set_user_black_list.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/set_user_black_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              us_id          用户id
+              type           处罚性质：1：禁止登录 2 禁止提现 3 禁止充值
+              limt_time      处罚到期时间戳
+              black_info     处罚原因
+            <b>返回</b>
+              errcode = 0     成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_black_list_info">获取用户黑名单列表信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/manage/get_black_list_info.php' target='api'>http://testapi.fnying.com/la/la_admin/manage/get_black_list_info.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            us_id          用户id
+           <b>返回</b>
+            rows            信息数组
+                log_id       绑定日志ID
+                us_id        用户ID
+                black_type   处罚性质：1：禁止登录 2 禁止提现 3 禁止充值
+                black_info   处罚原因
+                ttl_id       操作者ID
+                limt_time    处罚到期时间戳
+                ctime        创建时间
+            
+           <b>说明</b>
+
+          </pre>
+
+
+          <!-- transaction -->
+          <h3 id="transaction_select_ba">按条件搜索ba交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/transaction_select_ba.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/transaction_select_ba.php</a>
+          </h2>
+          <pre>
+            <b>GET参数(全部可选)</b>
+              from_time     查询起始时间   
+              to_time       查询截时间
+              qa_id         请求ID
+              us_id         用户ID
+              ba_id         数字货币代理商ID
+              asset_id      资产ID
+              ba_account_id 代理商账号ID（Hash）
+              us_account_id 用户账号ID（Hash）
+              bit_amount    数字货币金额
+              base_amount   提现资产金额
+              tx_type       交易类型
+              tx_detail     交易详情
+              tx_fee        交易手续费
+              tx_time       交易时间戳
+              qa_flag       订单状态
+              tx_hash       交易hash
+            <b>返回</b>
+            rows = array();
+              recharge_ba   用户ba提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ba_id          代理商ID
+                asset_id       充值资产ID
+                ba_account_id  代理商账号ID（Hash）
+                bit_amount     数字货币金额
+                base_amount    充值资产金额
+                tx_hash        交易HASH
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+              withdraw_ba   用户ba充值记录数组
+                qa_id           请求ID
+                us_id           用户ID
+                ba_id           代理商ID
+                asset_id        提现资产ID
+                us_account_id   用户账号ID（Hash）
+                bit_amount      数字货币金额
+                base_amount     提现资产金额
+                tx_hash         交易HASH
+                tx_type         交易类型
+                tx_detail       交易明细（JSON）
+                tx_fee          交易手续费
+                tx_time         请求时间戳
+                qa_flag         订单状态1:已处理，2拒绝，0：未处理
+            <b>说明</b>
+
+          </pre>
+          <h3 id="ba_transaction">获取ba交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/ba_transaction.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/ba_transaction.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token                用户token
+            <b>返回</b>
+            rows            信息数组
+              recharge_ba   用户ba提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ba_id          代理商ID
+                asset_id       充值资产ID
+                ba_account_id  代理商账号ID（Hash）
+                bit_amount     数字货币金额
+                base_amount    充值资产金额
+                tx_hash        交易HASH
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+              withdraw_ba   用户ba充值记录数组
+                qa_id           请求ID
+                us_id           用户ID
+                ba_id           代理商ID
+                asset_id        提现资产ID
+                us_account_id   用户账号ID（Hash）
+                bit_amount      数字货币金额
+                base_amount     提现资产金额
+                tx_hash         交易HASH
+                tx_type         交易类型
+                tx_detail       交易明细（JSON）
+                tx_fee          交易手续费
+                tx_time         请求时间戳
+                qa_flag         订单状态1:已处理，2拒绝，0：未处理
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="transaction_select_ca">按条件搜索ca交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/transaction_select_ca.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/transaction_select_ca.php</a>
+          </h2>
+          <pre>
+            <b>GET参数(全部可选)</b>
+            from_time     查询起始时间
+            to_time       查询截止时间
+            qa_id         请求id
+            us_id         用户id
+            ca_id         法定货币代理商id
+            us_account_id 用户账号id
+            asset_id      资产id
+            ca_account_id 法定货币代理商账号id
+            lgl_amount    法定货币金额
+            base_amount   充值资产金额
+            tx_type       交易类型
+            tx_detail     交易明细
+            tx_fee        交易手续费
+            tx_time       交易时间戳
+            qa_flag       订单状态
+            tx_hash      交易hash
+            <b>返回</b>
+              rows = array();
+                recharge_ca   用户ca提现记录数组
+                  qa_id          请求ID
+                  us_id          用户ID
+                  ca_id          代理商ID
+                  ca_account_id  代理商账号ID（Hash）
+                  lgl_amount     法定货币金额
+                  base_amount    充值资产金额
+                  tx_type        交易类型
+                  tx_detail      交易明细（JSON）
+                  tx_fee         交易手续费
+                  tx_time        请求时间戳
+                  qa_flag        订单状态
+                  tx_hash        订单hash
+                withdraw_ca   用户ca充值记录数组
+                  qa_id         请求ID
+                  us_id         用户ID
+                  ca_id         代理商ID
+                  us_account_id 用户账号ID（Hash）
+                  lgl_amount    法定定货币金额
+                  base_amount   提现资产金额
+                  tx_hash       交易HASH
+                  tx_type       交易类型
+                  tx_detail     交易明细（JSON）
+                  tx_fee        交易手续费
+                  tx_time       请求时间戳
+                  qa_flag       订单状态1:已处理，2拒绝，0：未处理
+            <b>说明</b>
+
+          </pre>
+          <h3 id="ca_transaction">获取ca交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/ca_transaction.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/ca_transaction.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token                用户token
+            <b>返回</b>
+            rows            信息数组
+              recharge_ca   用户ca提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ca_id          代理商ID
+                ca_account_id  代理商账号ID（Hash）
+                lgl_amount     法定货币金额
+                base_amount    充值资产金额
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+                tx_hash        订单hash
+              withdraw_ca   用户ca充值记录数组
+                qa_id         请求ID
+                us_id         用户ID
+                ca_id         代理商ID
+                us_account_id 用户账号ID（Hash）
+                lgl_amount    法定定货币金额
+                base_amount   提现资产金额
+                tx_hash       交易HASH
+                tx_type       交易类型
+                tx_detail     交易明细（JSON）
+                tx_fee        交易手续费
+                tx_time       请求时间戳
+                qa_flag       订单状态1:已处理，2拒绝，0：未处理
+
+            <b>说明</b>
+
+          </pre>
+          <h3 id="transactionuser_select_us">按条件搜索us交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/transaction_select_us.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/transaction_select_us.php</a>
+          </h2>
+          <pre>
+            <b>GET参数(全部可选)</b>
+            from_time     查询起始时间
+            to_time       查询截至时间
+            qa_id         请求id
+            us_id         用户id
+            ba_id         数字货币代理商id
+            ca_id         法定货币代理商id
+            asset_id      充值资产id
+            ba_account_id 数字货币代理商账号id
+            us_account_id 用户账号id
+            bit_amount    数字货币金额
+            base_amount   充值资产金额
+            tx_type       交易类型
+            tx_detail     交易明细
+            tx_fee        交易手续费
+            tx_time       交易时间戳
+            qa_flag       订单状态
+            tx_hash       交易hash
+            ca_account_id 法定货币代理商账号id
+            lgl_amount    法定货币金额
+
+            <b>返回</b>
+            rows            信息数组
+              recharge_ca   用户ca提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ca_id          代理商ID
+                ca_account_id  代理商账号ID（Hash）
+                lgl_amount     法定货币金额
+                base_amount    充值资产金额
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+                tx_hash        订单hash
+              withdraw_ca   用户ca充值记录数组
+                qa_id         请求ID
+                us_id         用户ID
+                ca_id         代理商ID
+                us_account_id 用户账号ID（Hash）
+                lgl_amount    法定定货币金额
+                base_amount   提现资产金额
+                tx_hash       交易HASH
+                tx_type       交易类型
+                tx_detail     交易明细（JSON）
+                tx_fee        交易手续费
+                tx_time       请求时间戳
+                qa_flag       订单状态1:已处理，2拒绝，0：未处理
+
+              recharge_ba   用户ba提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ba_id          代理商ID
+                asset_id       充值资产ID
+                ba_account_id  代理商账号ID（Hash）
+                bit_amount     数字货币金额
+                base_amount    充值资产金额
+                tx_hash        交易HASH
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+              withdraw_ba   用户ba充值记录数组
+                qa_id           请求ID
+                us_id           用户ID
+                ba_id           代理商ID
+                asset_id        提现资产ID
+                us_account_id   用户账号ID（Hash）
+                bit_amount      数字货币金额
+                base_amount     提现资产金额
+                tx_hash         交易HASH
+                tx_type         交易类型
+                tx_detail       交易明细（JSON）
+                tx_fee          交易手续费
+                tx_time         请求时间戳
+                qa_flag         订单状态1:已处理，2拒绝，0：未处理
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="user_transaction">获取us交易列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/transaction/user_transaction.php' target='api'>http://testapi.fnying.com/la/la_admin/transaction/user_transaction.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token                用户token
+            <b>返回</b>
+            rows            信息数组
+              recharge_ca   用户ca提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ca_id          代理商ID
+                ca_account_id  代理商账号ID（Hash）
+                lgl_amount     法定货币金额
+                base_amount    充值资产金额
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+                tx_hash        订单hash
+              withdraw_ca   用户ca充值记录数组
+                qa_id         请求ID
+                us_id         用户ID
+                ca_id         代理商ID
+                us_account_id 用户账号ID（Hash）
+                lgl_amount    法定定货币金额
+                base_amount   提现资产金额
+                tx_hash       交易HASH
+                tx_type       交易类型
+                tx_detail     交易明细（JSON）
+                tx_fee        交易手续费
+                tx_time       请求时间戳
+                qa_flag       订单状态1:已处理，2拒绝，0：未处理
+          
+              recharge_ba   用户ba提现记录数组
+                qa_id          请求ID
+                us_id          用户ID
+                ba_id          代理商ID
+                asset_id       充值资产ID
+                ba_account_id  代理商账号ID（Hash）
+                bit_amount     数字货币金额
+                base_amount    充值资产金额
+                tx_hash        交易HASH
+                tx_type        交易类型
+                tx_detail      交易明细（JSON）
+                tx_fee         交易手续费
+                tx_time        请求时间戳
+                qa_flag        订单状态
+              withdraw_ba   用户ba充值记录数组
+                qa_id           请求ID
+                us_id           用户ID
+                ba_id           代理商ID
+                asset_id        提现资产ID
+                us_account_id   用户账号ID（Hash）
+                bit_amount      数字货币金额
+                base_amount     提现资产金额
+                tx_hash         交易HASH
+                tx_type         交易类型
+                tx_detail       交易明细（JSON）
+                tx_fee          交易手续费
+                tx_time         请求时间戳
+                qa_flag         订单状态1:已处理，2拒绝，0：未处理
+
+            <b>说明</b>
+
+          </pre>
+
+          <!-- kyc审核 -->
+          <h3 id="kyc_user_list">获取us审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_user_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_user_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+              token         用户token
+
+            <b>返回</b>
+              errcode = 0     请求成功
+              rows            列表数组
+                log_id        绑定日志id
+                us_id          用户id
+                bind_type      绑定类型
+                bind_name      绑定名称
+                bind_info      绑定内容
+                bind_salt      绑定的盐
+                count_error    错误次数
+                limt_time      限定时间戳
+                ctime          创建时间
+
+            <b>说明</b>
+              若为空返回错误
+
+          </pre>
+
+          <h3 id="kyc_user_confirm">us审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_user_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_user_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            us_id        用户的id
+            bind_name    绑定名称
+            bind_info     绑定信息
+            log_id        日志id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_user_refuse">us审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_user_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_user_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        日志id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ba_list">获取ba审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+             token         用户token
+            <b>返回</b>
+              errcode = 0     请求成功
+              rows            列表数组
+                log_id        绑定日志id
+                ba_id          数字货币代理id
+                bind_type      绑定类型
+                bind_name      绑定名称
+                bind_info      绑定内容
+                bind_salt      绑定的盐
+                count_error    错误次数
+                limt_time      限定时间戳
+                ctime          创建时间
+
+            <b>说明</b>
+              若为空返回错误
+
+          </pre>
+          <h3 id="kyc_ba_confirm">ba审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        主键id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ba_refuse">ba审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        主键id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="kyc_ca_list">获取ca审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+             token         用户token
+            <b>返回</b>
+              errcode = 0     请求成功
+              rows            列表数组
+                log_id        绑定日志id
+                ca_id          法定货币代理id
+                bind_type      绑定类型
+                bind_name      绑定名称
+                bind_info      绑定内容
+                bind_salt      绑定的盐
+                count_error    错误次数
+                limt_time      限定时间戳
+                ctime          创建时间
+
+            <b>说明</b>
+              若为空返回错误
+
+          </pre>
+          <h3 id="kyc_ca_confirm">ca审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        主键id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ca_refuse">ca审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        主键id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ba_reg_confirm">ba注册审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            bind_id        绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ba_reg_table">获取ba注册审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_table.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_table.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            <b>返回</b>
+              rows             ba注册信息数组
+                ba_id           baid
+                bind_id          绑定id
+                bind_type        绑定类型
+                bind_info        绑定信息
+                bind_name         绑定名称
+                ctime            创建时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ba_reg_refuse">ba注册审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ba_reg_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token          用户token
+            bind_id        绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="kyc_ca_reg_confirm">ca注册审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            bind_id       绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ca_reg_table">获取ca注册审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_table.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_table.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            <b>返回</b>
+            rows             ca注册信息数组
+            ca_id           caid
+            bind_id          绑定id
+            bind_type        绑定类型
+            bind_info        绑定信息
+            bind_name         绑定名称
+            ctime            创建时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_ca_reg_refuse">ca注册审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_ca_reg_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            bind_id        绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+ 
+          <h3 id="kyc_la_ba_address_confirm">ba地址审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            ba_id        baid
+            bind_id      绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_la_ba_address_list">ba地址审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            
+            <b>返回</b>
+            errcode = 0          请求成功
+            rows                安全信息组
+                bind_type           绑定类型
+                bind_name           绑定名称
+                bind_info           绑定内容
+                ctime               绑定时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_la_ba_address_refuse"> ba地址审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ba_address_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            bind_id      绑定id
+            <b>返回</b>
+            errcode = 0          请求成功
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_la_ca_address_confirm">ca地址审核确认</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_confirm.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_confirm.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            ca_id        caid
+            bind_id      绑定id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_la_ca_address_list">ca地址审核列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            
+            <b>返回</b>
+            errcode = 0          请求成功
+            rows                安全信息组
+                bind_type           绑定类型
+                bind_name           绑定名称
+                bind_info           绑定内容
+                ctime               绑定时间
+
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="kyc_la_ca_address_refuse"> ca地址审核拒绝</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_refuse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_la_ca_address_refuse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            bind_id      绑定id
+            <b>返回</b>
+            errcode = 0          请求成功
+            <b>说明</b>
+
+          </pre>
+
+
+
+
+
+          <h3 id="kyc_feedback_accept">故障信息接受</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_accept.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_accept.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        日志id
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_feedback_analyse">故障信息分析</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_analyse.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_analyse.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        日志id
+            analyse_info  分析信息
+            analyse_name  分析人昵称
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_feedback_deal">故障信息处理</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_deal.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_deal.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+            log_id        日志id
+            deal_info      处理信息
+            deal_name      处理人昵称
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="kyc_feedback_list">故障信息列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_list.php' target='api'>http://testapi.fnying.com/la/la_admin/kyc/kyc_feedback_list.php</a>
+          </h2>
+          <pre>
+            <b>GET参数</b>
+            token        用户token
+        
+            <b>返回</b>
+              errcode = 0     请求成功
+               rows            故障信息列表
+               log_id            日志id
+               sub_id            模块id
+               end_type          终端类型
+               submit_time       提交时间
+               submit_id         提交id
+               submit_name       提交用户昵称
+               submit_info       提交信息
+               analyse_time       分析时间
+               analyse_info       原因分析
+               analyse_id         分析人id
+               analyse_name       分析人昵称    
+               del_time           处理时间
+               deal_id            处理人id
+               deal_name          处理人昵称
+               deal_info          处理意见
+               log_status         处理状态( 0 未处理 1 已受理 2 已分析 9 已处理)
+            <b>说明</b>
+
+          </pre>
+
+
+<!--  configure  -->
+          <h3 id="del_ba_bit_type">删除ba的bit_type</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/del_ba_bit_type.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/del_ba_bit_type.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+            option_key         选项关键字
+            <b>返回</b>
+              errcode = 0      请求成功
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="del_ca_channel">删除ca的渠道</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/del_ca_channel.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/del_ca_channel.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+            option_key         选项关键字
+            <b>返回</b>
+              errcode = 0      请求成功
+              
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_ba_bit_type"> 获取ba的bit_type</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/get_ba_bit_type.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/get_ba_bit_type.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             ba的type数组
+                option_name        选项名称
+                option_key         选项关键字
+                option_value       选项值
+                opyion_sort        选项排序
+                sub_id             模块id
+                status             有效标志
+                option_src         选项图片
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_ca_channel"> 获取ca的渠道</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/get_ca_channel.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/get_ca_channel.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             ba的type数组
+                option_name        选项名称
+                option_key         选项关键字
+                option_value       选项值
+                opyion_sort        选项排序
+                sub_id             模块id
+                status             有效标志
+                option_src         选项图片
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_email_config">配置email</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/get_email_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/get_email_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             email配置文件
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_error_code_config">配置错误代码</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/get_error_code_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/get_error_code_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             错误代码配置文件
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_sms_config">配置短信</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/get_sms_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/get_sms_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             短信接口配置文件
+            <b>说明</b>
+
+          </pre>
+
+          
+          <h3 id="set_ba_bit_type"> 设置ba的bit_type</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_ba_bit_type.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_ba_bit_type.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+            option_key         选项关键字
+            option_value       选项值
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             ba的type数组
+                option_name        选项名称
+                option_key         选项关键字
+                option_value       选项值
+                opyion_sort        选项排序
+                sub_id             模块id
+                status             有效标志
+                option_src         选项图片
+            <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="set_ca_channel"> 设置ca的渠道</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_ca_channel.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_ca_channel.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+         
+            option_value       选项值
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             ba的type数组
+                option_name        选项名称
+                option_key         选项关键字
+                option_value       选项值
+                opyion_sort        选项排序
+                sub_id             模块id
+                status             有效标志
+                option_src         选项图片
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="set_configure_key"> 设定密钥key</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_configure_key.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_configure_key.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+            token             用户token
+           api_key            密钥key
+            <b>返回</b>
+              errcode = 0      请求成功
+                rows             ba的type数组
+                option_name        选项名称
+                option_key         选项关键字
+                option_value       选项值
+                opyion_sort        选项排序
+                sub_id             模块id
+                status             有效标志
+                option_src         选项图片
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="set_email_config">设置email信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_email_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_email_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token             用户token
+         Host               邮箱类型
+         Username           邮箱姓名
+         Password           邮箱密码（授权码，非真实密码）
+         address            邮箱地址
+         name               发送头名称
+            <b>返回</b>
+            errcode = 0      请求成功
+            row             返回配置信息
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="set_error_code_config">设置错误编码信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_error_code_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_error_code_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token             用户token
+         code_key           错误编号
+         code_value         错误值
+            <b>返回</b>
+            errcode = 0      请求成功
+            row             返回配置信息
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="set_sms_config">设置短信配置</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/configure/set_sms_config.php' target='api'>http://testapi.fnying.com/la/la_admin/configure/set_sms_config.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token                   用户token
+          accessKeyId             短信服务商id
+          accessKeySecret         短信服务商密钥
+          SignName                签名
+          TemplateCode            模板编号
+            <b>返回</b>
+            errcode = 0      请求成功
+            row             返回配置信息
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="admin_add"> 添加管理员</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/admin_add.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/admin_add.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+          token             用户token
+          pid               权限id(逗号隔开例如1，2，3)
+          real_name         真实姓名
+          pass_word_hash    密码hash
+          user              用户名
+        <b>返回</b>
+          errcode = 0      请求成功
+          
+        <b>说明</b>
+
+          </pre>
+
+          <h3 id="admin_delete"> 删除管理员</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/admin_delete.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/admin_delete.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+          token             用户token
+          user              用户名
+          pass_word_hash    密码hash
+          <b>返回</b>
+            errcode = 0      请求成功
+            
+          <b>说明</b>
+
+          <h3 id="admin_password_reset"> 删除管理员</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/admin_password_reset.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/admin_password_reset.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+          email             邮箱
+          user              用户名
+          <b>返回</b>
+          errcode = 0      请求成功
+          <b>说明</b>
+
+          </pre>
+
+          <h3 id="reg_lock"> 注册锁定</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/reg_lock.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/reg_lock.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         type             锁定类型
+          （搭建完成  默认锁定）
+            <b>返回</b>
+              rows            信息数组
+              is_open          注册是否打开
+              
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="reg_list"> 注册列表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/reg_list.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/reg_list.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token              用户token
+ 
+            <b>返回</b>
+              rows            信息数组
+              is_open         是否打开
+              option_name     键名
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="reg_switch"> 注册锁定开关</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/admin/reg_switch.php' target='api'>http://testapi.fnying.com/la/la_admin/admin/reg_switch.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token             用户token
+         type              打开类型
+        <b>返回</b>
+         errcode = 0       成功
+          
+        <b>说明</b>
+
+          </pre>
+
+
+          <h3 id="la_report_form"> 统计报表</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/report_form/la_report_form.php' target='api'>http://testapi.fnying.com/la/la_admin/report_form/la_report_form.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+         token             用户token
+       
+        <b>返回</b>
+          rows                                    信息数组
+            sum_us_base_amount                              用户基本金额总和
+            sum_us_lock_amount                              用户锁定金额总和
+            sum_ba_base_amount                              ba数字资产总和
+            sum_ba_lock_amount                              ba数字资产锁定总和
+            sum_ca_base_amount                              ca法定资产总和
+            sum_ca_lock_amount                              ca法定资产锁定总和
+            sum_ba_recharge_base_amount                     ba充值资金总和
+            sum_ba_withdraw_base_amount                     ba提现资金总和
+            sum_ca_recharge_base_amount                     ca充值资金总和
+            sum_ca_withdraw_base_amount                     ca提现资金总和
+            sum_us_recharge_base_amount                     用户充值资金总和
+            sum_us_withdraw_base_amount                     用户提现资金总和
+            ba_register_count                               已注册的ba数量
+            us_register_count                               已注册的ba数量
+            ca_register_count                               已注册的ba数量
+            sum_ba_recharge_list_by_ba_id                   ba充值列表数组
+                ba_id                                           baid
+                ba_amount                                       ba充值资产
+            sum_ba_withdraw_list_by_ba_id                    ba充值列表数组
+                ba_id                                           baid
+                ba_amount                                       ba充值资产
+            sum_ca_recharge_list_by_ca_id                   ca充值列表数组
+                ca_id                                           caid
+                ca_amount                                       ca充值资产
+            sum_ca_withdraw_list_by_ca_id                    ca充值列表数组
+                  ca_id                                           caid
+                  ca_amount                                       ca充值资产
+            sum_bit_type_recharge_row                        数字货币类型充值数组
+                  sum_of_bit_type_recharge                        该数字货币充值总和
+                  asset_id                                        数字货币类型
+            sum_bit_type_withdraw_row                         数字货币类型充值数组
+                  sum_of_bit_type_recharge                        该数字货币提现总和
+                  asset_id                                        数字货币类型
+        <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_la_base_info"> 获取la的基本信息</h3>
+          <h2>
+            <a href='http://testapi.fnying.com/la/la_admin/report_form/get_la_base_info.php' target='api'>http://testapi.fnying.com/la/la_admin/report_form/get_la_base_info.php</a>
+          </h2>
+          <pre>
+         
+         <b> GET参数</b>  
+           token             用户token
+       
+            <b>返回</b>
+            rows                 信息数组
+              id                   la的id
+              base_currency         基准货币类型
+              unit                   单位
+              h5_url                 h5页面url
+              api_url                接口url
+            <b>说明</b>
+
+          </pre>
+
+        
+        </div>
+
+      </div>
+
+      <div class="col-md-3" role="complementary">
+        <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu" id="menubar">
+          <ul class="nav bs-docs-sidenav">
+            <li>
+              <a href="#common">
+                <b>概要说明</b>
+              </a>
+            </li>
+            <li>------------------------------------------</li>
+          </ul>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#reg_lgn_menu">
+                  管理业务API
+                </a>
+              </h4>
+            </div>
+            <div id="reg_lgn_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#ba_list">
+                      <b class="text-success">获取ba列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ba_list_detail_message">
+                      <b class="text-success">获取ba详细信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ba_bail">
+                      <b class="text-success">调整ba保证金</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_list">
+                      <b class="text-success">获取ca列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_list_detail_message">
+                      <b class="text-success">获取ca详细信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_bail">
+                      <b class="text-success">调整ca保证金</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#user_list">
+                      <b class="text-success">获取us列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#user_list_detail_message">
+                      <b class="text-success">获取us详细信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_user_black_list">
+                      <b class="text-success">设定用户黑名单列表信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_black_list_info">
+                      <b class="text-success">获取用户黑名单列表信息</b>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#info_menu">
+                  交易记录业务API
+                </a>
+              </h4>
+            </div>
+            <div id="info_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#transaction_select_ba">
+                      <b class="text-success">按条件搜索ba交易列表</b>
+                    </a>
+                  </li>
+      
+                  <li>
+                    <a href="#ba_transaction">
+                      <b class="text-success">获取ba交易列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#transaction_select_ca">
+                      <b class="text-success">按条件搜索ca交易列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ca_transaction">
+                      <b class="text-success">获取ca交易列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#transactionuser_select_us">
+                      <b class="text-success">按条件搜索us交易列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#user_transaction">
+                      <b class="text-success">获取us交易列表</b>
+                    </a>
+                  </li>
+      
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#deal_menu">
+                  审核业务API
+                </a>
+              </h4>
+            </div>
+            <div id="deal_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#kyc_user_list">
+                      <b class="text-success">获取us审核列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_user_confirm">
+                      <b class="text-success">us审核确认</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_user_refuse">
+                      <b class="text-success">us审核拒绝</b>
+                    </a>
+                  </li>
+                 
+                  <li>
+                    <a href="#kyc_ba_list">
+                      <b class="text-success">获取ba审核列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_ba_confirm">
+                      <b class="text-success">ba审核确认</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_ba_refuse">
+                      <b class="text-success">ba审核确认</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_ca_list">
+                      <b class="text-success">获取ca审核列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_ca_confirm">
+                      <b class="text-success">ca审核确认</b>
+                    </a>
+                    <li>
+                      <a href="#kyc_ca_refuse">
+                        <b class="text-success">ca审核拒绝</b>
+                      </a>
+                  </li>
+                  <li>
+                    <a href="#kyc_ba_reg_confirm">
+                      <b class="text-success">ba注册审核确认</b>
+                    </a>
+                </li>
+                <li>
+                  <a href="#kyc_ba_reg_table">
+                    <b class="text-success">获取ba注册审核列表</b>
+                  </a>
+              </li>
+              <li>
+                <a href="#kyc_ba_reg_refuse">
+                  <b class="text-success">ba注册拒绝</b>
+                </a>
+            </li>
+            <li>
+              <a href="#kyc_ca_reg_confirm">
+                <b class="text-success">ca注册审核确认</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_ca_reg_table">
+                <b class="text-success">获取ca注册审核列表</b>
+              </a>
+             </li>
+            <li>
+              <a href="#kyc_ca_reg_refuse">
+                <b class="text-success">ca注册审核拒绝</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_la_ba_address_confirm">
+                <b class="text-success">ba地址审核确认</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_la_ba_address_list">
+                <b class="text-success">ba地址审核列表</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_la_ba_address_refuse">
+                <b class="text-success">ba地址审核拒绝</b>
+              </a>
+             </li>
+          
+             <li>
+              <a href="#kyc_la_ca_address_confirm">
+                <b class="text-success">ca地址审核确认</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_la_ca_address_list">
+                <b class="text-success">ca地址审核列表</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_la_ca_address_refuse">
+                <b class="text-success">ca地址审核拒绝</b>
+              </a>
+             </li>
+
+
+             <li>
+              <a href="#kyc_feedback_accept">
+                <b class="text-success">故障信息接受</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_feedback_analyse">
+                <b class="text-success">故障信息分析</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_feedback_deal">
+                <b class="text-success">故障信息处理</b>
+              </a>
+             </li>
+             <li>
+              <a href="#kyc_feedback_list">
+                <b class="text-success">故障信息列表</b>
+              </a>
+             </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#log_menu">
+                  配置业务API
+                </a>
+              </h4>
+            </div>
+            <div id="log_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#del_ba_bit_type">
+                      <b class="text-warning">删除ba的bit_type</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#del_ca_channel">
+                      <b class="text-warning">删除ca的渠道</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_ba_bit_type">
+                      <b class="text-warning">获取ba的bit_type</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_ca_channel">
+                      <b class="text-warning">获取ca的渠道</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_email_config">
+                      <b class="text-warning">配置email</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_error_code_config">
+                      <b class="text-warning">配置错误代码</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_sms_config">
+                      <b class="text-warning">配置短信</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_ba_bit_type">
+                      <b class="text-warning">设置ba的bit_type</b>
+                    </a>
+                  </li>
+              
+                  <li>
+                    <a href="#set_ca_channel">
+                      <b class="text-warning">设置ca的渠道</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_configure_key">
+                      <b class="text-warning">设定密钥key</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_email_config">
+                      <b class="text-warning">设置email信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_error_code_config">
+                      <b class="text-warning">设置错误编码信息</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#set_sms_config">
+                      <b class="text-warning">设置短信配置</b>
+                    </a>
+                  </li>
+
+                
+
+
+                  <li>
+                    <a href="#ba_recharge_quest">
+                      <b class="text-warning">ba充值保证金</b>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#ba_withdraw_quest">
+                      <b class="text-warning">ba提现保证金</b>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#ca_recharge_quest">
+                      <b class="text-warning">ca充值保证金</b>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#ca_withdraw_quest">
+                      <b class="text-warning">ca提现保证金</b>
+                    </a>
+                  </li>
+
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#common_menu">
+                  管理员业务API
+                </a>
+              </h4>
+            </div>
+            <div id="common_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                  <li>
+                    <a href="#admin_add">
+                      <b class="text-warning">添加管理员</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#admin_delete">
+                      <b class="text-warning">删除管理员</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#admin_password_reset">
+                      <b class="text-warning">重置管理员密码</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#reg_lock">
+                      <b class="text-warning">注册锁定</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#reg_list">
+                      <b class="text-warning">注册列表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#reg_switch">
+                      <b class="text-warning">注册开关</b>
+                    </a>
+                  </li>
+                 
+                </ul>
+   
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#menubar" href="#la_menu">
+                  la信息业务API
+                </a>
+              </h4>
+            </div>
+            <div id="la_menu" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                
+                  <li>
+                    <a href="#la_report_form">
+                      <b class="text-warning">统计报表</b>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#get_la_base_info">
+                      <b class="text-warning">获取la的基本信息</b>
+                    </a>
+                  </li>
+               
+                </ul>
+   
+              </div>
+            </div>
+          </div>
+
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+

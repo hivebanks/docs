@@ -1,0 +1,18 @@
+sudo apt-get update
+
+sudo apt-add-repository ppa:bitcoin/bitcoin
+
+sudo apt-get update
+
+sudo apt-get install bitcoind -y
+
+#bitcoin.conf为bitcoind的配置文件，设置bitcoind的节点状态
+#write bitcoin.conf to .Bitcoin
+
+#run bitcoind
+bitcoind
+
+tips:
+#if problem(apt-add-repository: command not found)
+sudo apt-get install software-properties-common python-software-properties
+
